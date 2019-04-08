@@ -1,0 +1,12 @@
+body {
+    background-color: #52200e;
+}
+
+main>* {
+    line-height: 1.5rem;
+    color: white;
+}
+
+main > input {
+background-color: darkgray
+}
