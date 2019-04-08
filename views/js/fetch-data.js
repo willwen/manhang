@@ -2,38 +2,38 @@
 const url = "http://app.linkedin-reach.io/words";
 
 let header = new Headers({
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'multipart/form-data'
+    "Access-Control-Allow-Origin": '*',
+    "Access-Control-Allow-Methods": "GET, HEAD",
+    "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
+    "Content-Type": 'text/plain', 
+    "Access-Control-Request-Method": "POST"
 });
+// console.log(header)
 
-
-// let myHeaders = new Headers({
-//     "Content-Type": "text/plain",
-//     "Content-Length": content.length.toString(),
-//     "X-Custom-Header": "ProcessThisImmediately",
-// });
-
-let fetchOptions = {
-    // mode: 'no-cors',
-    method: 'GET',
-    // credentials: 'include',
-    headers: {
-        "Access-Control-Allow-Origin": '*',
-        "Content-Type": 'text/plain'
-    }
-}
 
 //====INITIATES GAME once response is obtained.
-fetch("../words.txt", fetchOptions)
-    // fetch(url, fetchOptions)
-    .then(res => {
+// fetch("../words.txt", fetchOptions)
+fetch(url, {
+    mode: 'cors',
+    method: 'OPTIONS',
+    headers: {
+        "Access-Control-Allow-Origin": '*',
+        "Access-Control-Allow-Methods": "GET, HEAD",
+        "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
+        "Content-Type": 'text/plain', 
+        "Access-Control-Request-Method": "POST"
+    }
+})
+    .then(function (response) {
 
-        // if response is ok
-        if (res.ok) {
-            
-            return res.text();//a promise
+        console.log(response.headers)
+        // if responseponse is ok
+        if (response.ok) {
+
+            return response.text();//a promise
         } else {
-            console.error(res)
+            // console.error(response)
+            console.error('in else')
             throw new Error('ERROR: Network response wat not ok.');
 
         }
@@ -43,7 +43,10 @@ fetch("../words.txt", fetchOptions)
         //may have to restructure so that gui loads before all the response
         //====INITIATES GAME
         initGame(text.split('\n'));
+    }).catch(function (error) {
+        console.log('Looks like there was a problem: \n', error);
     });
+
 
 
 
